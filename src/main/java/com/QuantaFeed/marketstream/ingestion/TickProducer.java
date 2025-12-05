@@ -18,7 +18,6 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Simulates live market data by producing random price ticks
  * and placing them into a shared blocking queue.
- *
  * Producer in the Producer-Consumer pattern.
  */
 @Component
