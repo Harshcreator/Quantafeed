@@ -33,5 +33,10 @@ public interface TickRepository extends JpaRepository<Tick, Long> {
      * Find recent ticks for a symbol with limit
      */
     List<Tick> findTop100BySymbolOrderByTimestampDesc(String symbol);
+
+    /**
+     * Find ticks for OHLC calculation (last N minutes)
+     */
+    List<Tick> findBySymbolAndTimestampAfterOrderByTimestampAsc(String symbol, Instant after);
 }
 
