@@ -1,10 +1,10 @@
-# TickVault - Real-Time Market Data Ingestion Service
+# QuantaFeed - Real-Time Market Data Ingestion Service
 
 A lightweight real-time market data ingestion and query service built with Spring Boot 4.0.0 and Java 21.
 
 ## Overview
 
-TickVault simulates live price ticks, buffers them using a producer–consumer architecture, persists them into an embedded H2 database, and exposes REST APIs to fetch market data.
+QuantaFeed simulates live price ticks, buffers them using a producer–consumer architecture, persists them into an embedded H2 database, and exposes REST APIs to fetch market data.
 
 ## Architecture
 
@@ -100,7 +100,7 @@ java -jar target/marketstream-0.0.1-SNAPSHOT.jar
 
 Navigate to: http://localhost:8080/h2-console
 
-- **JDBC URL**: `jdbc:h2:mem:tickvault`
+- **JDBC URL**: `jdbc:h2:mem:QuantaFeed`
 - **Username**: `sa`
 - **Password**: (empty)
 
