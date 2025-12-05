@@ -114,8 +114,8 @@ app:
   queue:
     capacity: 1000                      # Buffer size
   ingestion:
-    produce-rate: 100                   # Produce tick every 100ms
-    consume-rate: 500                   # Consume batch every 500ms
+    produce-rate: 200                   # Produce tick every 200ms
+    consume-rate: 500                   # Persist batch every 500ms
 ```
 
 ## Tech Stack

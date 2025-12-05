@@ -29,6 +29,9 @@ app:
   symbols: AAPL,GOOG,MSFT,META,NVDA
   queue:
     capacity: 1000
+  ingestion:
+    produce-rate: 200    # Generate tick every 200ms (5 ticks/second)
+    consume-rate: 500    # Persist batch every 500ms
 
 # Logging
 logging:
