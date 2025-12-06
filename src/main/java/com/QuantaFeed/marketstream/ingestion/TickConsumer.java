@@ -13,7 +13,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Consumes ticks from the shared blocking queue and persists them to the database.
- *
  * Consumer in the Producer-Consumer pattern.
  */
 @Component
