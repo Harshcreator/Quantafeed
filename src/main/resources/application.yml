@@ -1,9 +1,9 @@
 spring:
   application:
-    name: TickVault
+    name: Quantafeed
 
   datasource:
-    url: jdbc:h2:mem:tickvault;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:Quantafeed;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
     password:
