@@ -1,6 +1,8 @@
 package com.QuantaFeed.marketstream.ingestion;
 
 import com.QuantaFeed.marketstream.config.BinanceWebSocketProperties;
+import com.QuantaFeed.marketstream.kafka.TickKafkaProducer;
+import com.QuantaFeed.marketstream.kafka.TickMessage;
 import com.QuantaFeed.marketstream.model.Tick;
 import com.QuantaFeed.marketstream.model.binance.BinanceTradeEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,8 +19,8 @@ import java.net.URI;
 import java.time.Instant;
 
 /**
- * Connects to Binance public WebSocket stream and pushes incoming trades
- * into the tick producer queue.
+ * Connects to Binance public WebSocket stream and publishes incoming trades
+ * to Kafka as TickMessage events.
  */
 @Component
 @Slf4j
@@ -26,7 +28,7 @@ import java.time.Instant;
 public class BinanceWebSocketClient {
 
     private final BinanceWebSocketProperties properties;
-    private final TickProducer tickProducer;
+    private final TickKafkaProducer tickKafkaProducer;
     private final ObjectMapper objectMapper;
 
     private final ReactorNettyWebSocketClient webSocketClient = new ReactorNettyWebSocketClient();
@@ -66,8 +68,11 @@ public class BinanceWebSocketClient {
             BigDecimal price = event.priceAsBigDecimal();
             Instant timestamp = Instant.ofEpochMilli(event.getTradeTime());
 
+            // Build domain Tick and Kafka transport message
             Tick tick = new Tick(symbol, price, timestamp);
-            tickProducer.publishTick(tick);
+            TickMessage message = new TickMessage(tick.getSymbol(), tick.getPrice(), tick.getTimestamp());
+
+            tickKafkaProducer.sendTick(message);
 
         } catch (Exception e) {
             log.error("Failed to process Binance payload: {}", payload, e);
@@ -75,4 +80,3 @@ public class BinanceWebSocketClient {
         return Mono.empty();
     }
 }
-
