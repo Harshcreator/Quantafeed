@@ -76,6 +76,19 @@ public class TickProducer {
                 Instant.now()
         );
 
+        // Delegate to generic publish method so WebSocket ticks use same path
+        publishTick(tick);
+    }
+
+    /**
+     * Publish an externally created tick (e.g. from Binance WebSocket)
+     * into the shared queue.
+     */
+    public void publishTick(Tick tick) {
+        if (tick == null) {
+            log.warn("Attempted to publish null tick");
+            return;
+        }
         try {
             boolean added = tickQueue.offer(tick);
             if (added) {
@@ -89,7 +102,7 @@ public class TickProducer {
                         tickQueue.size(), tick.getSymbol());
             }
         } catch (Exception e) {
-            log.error("Error producing tick for {}", symbol, e);
+            log.error("Error publishing tick for {}", tick.getSymbol(), e);
         }
     }
 
@@ -100,4 +113,3 @@ public class TickProducer {
         return tickCount.get();
     }
 }
-

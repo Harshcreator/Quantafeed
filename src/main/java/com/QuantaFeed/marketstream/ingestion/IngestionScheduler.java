@@ -16,21 +16,22 @@ import jakarta.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class IngestionScheduler {
 
-    private final TickProducer tickProducer;
+//    private final TickProducer tickProducer;
     private final TickConsumer tickConsumer;
 
     @PostConstruct
     public void init() {
-        log.info("IngestionScheduler started - producing ticks every 200ms");
+        log.info("IngestionScheduler started - consuming ticks from queue every 500ms");
     }
 
-    /**
-     * Produce ticks at a fixed rate (every 200ms = 5 ticks/second)
-     */
-    @Scheduled(fixedRateString = "${app.ingestion.produce-rate:200}")
-    public void scheduledProduce() {
-        tickProducer.produceTick();
-    }
+//    /**
+//     * Produce ticks at a fixed rate (every 200ms = 5 ticks/second)
+//     */
+//    @Scheduled(fixedRateString = "${app.ingestion.produce-rate:200}")
+//    public void scheduledProduce() {
+//        tickProducer.produceTick();
+//    }
+
 
     /**
      * Consume and persist ticks at a fixed rate (every 500ms)

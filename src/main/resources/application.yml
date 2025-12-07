@@ -24,6 +24,14 @@ spring:
       hibernate:
         format_sql: true
 
+# Binance WebSocket configuration
+binance:
+  websocket:
+    enabled: true
+    base-url: wss://stream.binance.com:9443/ws
+    stream: btcusdt@trade
+    symbol: BTCUSDT
+
 # Application configuration
 app:
   symbols: AAPL,GOOG,MSFT,META,NVDA
@@ -38,4 +46,3 @@ logging:
   level:
     com.QuantaFeed.marketstream: INFO
     org.hibernate.SQL: WARN
-

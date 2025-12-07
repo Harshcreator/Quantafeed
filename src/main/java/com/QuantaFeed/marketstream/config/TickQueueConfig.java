@@ -1,6 +1,7 @@
 package com.QuantaFeed.marketstream.config;
 
 import com.QuantaFeed.marketstream.model.Tick;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,5 +22,10 @@ public class TickQueueConfig {
     public BlockingQueue<Tick> tickQueue() {
         return new ArrayBlockingQueue<>(queueCapacity);
     }
-}
 
+    // Provide a shared Jackson ObjectMapper for WebSocket client and others
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
+}
